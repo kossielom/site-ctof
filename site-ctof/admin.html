@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Admin CTOF – Connexion</title>
+  <link rel="stylesheet" href="styles/main.css" />
+  <style>
+    .hidden { display: none; }
+    form { margin-bottom: 2rem; }
+    input, select, button { margin: 0.5rem 0; padding: 0.5rem; }
+  </style>
+</head>
+<body>
+  <main>
+    <!-- ✅ SECTION LOGIN -->
+    <div id="login-box">
+      <h1>🔐 Connexion Administrateur</h1>
+      <input type="text" id="username" placeholder="Nom d'utilisateur" />
+      <input type="password" id="password" placeholder="Mot de passe" />
+      <button onclick="login()">Se connecter</button>
+      <p id="login-error" style="color:red;"></p>
+    </div>
+
+    <!-- ✅ SECTION ADMIN PROTÉGÉE -->
+    <div id="admin-panel" class="hidden">
+      <h2>✅ Bienvenue <span id="admin-name"></span></h2>
+      <button onclick="logout()">🚪 Déconnexion</button>
+
+      <hr>
+
+      <h3>📤 Ajouter une image</h3>
+      <form action="upload.php" method="POST" enctype="multipart/form-data">
+        <input type="file" name="image" accept="image/*" required><br>
+        <input type="text" name="alt" placeholder="Description" required><br>
+        <select name="category" required>
+          <option value="culture">Culture</option>
+          <option value="events">Événements</option>
+          <option value="cuisine">Cuisine</option>
+        </select><br>
+        <button type="submit">Ajouter l’image</button>
+      </form>
+
+      <hr>
+
+      <h3>🎬 Ajouter une vidéo</h3>
+      <form action="upload_video.php" method="POST" enctype="multipart/form-data">
+        <input type="file" name="video" accept="video/mp4,video/webm" required><br>
+        <input type="text" name="title" placeholder="Titre vidéo" required><br>
+        <button type="submit">Ajouter la vidéo</button>
+      </form>
+    </div>
+  </main>
+
+  <script>
+    const admins = {
+      "admin1": "pass123",
+      "admin2": "secret456",
+      "elom": "mario2025"
+    };
+
+    function login() {
+      const user = document.getElementById('username').value.trim();
+      const pass = document.getElementById('password').value.trim();
+      const error = document.getElementById('login-error');
+
+      if (admins[user] && admins[user] === pass) {
+        document.getElementById('login-box').classList.add('hidden');
+        document.getElementById('admin-panel').classList.remove('hidden');
+        document.getElementById('admin-name').textContent = user;
+        sessionStorage.setItem('admin_logged_in', user);
+      } else {
+        error.textContent = "❌ Identifiants incorrects.";
+      }
+    }
+
+    function logout() {
+      sessionStorage.removeItem('admin_logged_in');
+      location.reload();
+    }
+
+    // Si déjà connecté (via sessionStorage)
+    window.onload = () => {
+      const user = sessionStorage.getItem('admin_logged_in');
+      if (user && admins[user]) {
+        document.getElementById('login-box').classList.add('hidden');
+        document.getElementById('admin-panel').classList.remove('hidden');
+        document.getElementById('admin-name').textContent = user;
+      }
+    };
+  </script>
+</body>
+<hr>
+<h2>🗃 Gérer les images et vidéos</h2>
+<div id="resource-list">
+  <p>Chargement...</p>
+</div>
+
+<script>
+function loadResources() {
+  fetch('gallery.json')
+    .then(res => res.json())
+    .then(data => {
+      const container = document.getElementById('resource-list');
+      container.innerHTML = '';
+
+      const section = (title, items, type) => {
+        const div = document.createElement('div');
+        div.innerHTML = `<h3>${title}</h3>`;
+        items.forEach((item, i) => {
+          const wrap = document.createElement('div');
+          wrap.style.border = "1px solid #ccc";
+          wrap.style.padding = "10px";
+          wrap.style.margin = "10px";
+
+          const preview = type === "image"
+            ? `<img src="${item.src}" style="max-width:100px;"><br>`
+            : `<video src="${item.src}" width="150" controls></video><br>`;
+
+          wrap.innerHTML = preview + `
+            <input type="text" value="${item.alt || item.title}" id="${type}-title-${i}" />
+            ${type === 'image' ? `
+              <select id="${type}-cat-${i}">
+                <option value="culture" ${item.category === 'culture' ? 'selected' : ''}>Culture</option>
+                <option value="events" ${item.category === 'events' ? 'selected' : ''}>Événements</option>
+                <option value="cuisine" ${item.category === 'cuisine' ? 'selected' : ''}>Cuisine</option>
+              </select>
+            ` : ''}
+            <button onclick="updateResource('${type}', ${i})">✏️ Modifier</button>
+            <button onclick="deleteResource('${type}', ${i})">❌ Supprimer</button>
+          `;
+          div.appendChild(wrap);
+        });
+        container.appendChild(div);
+      };
+
+      section("🖼 Images", data.images, "image");
+      section("🎬 Vidéos", data.videos, "video");
+    });
+}
+
+function updateResource(type, index) {
+  const title = document.getElementById(`${type}-title-${index}`).value;
+  const category = type === "image" ? document.getElementById(`${type}-cat-${index}`).value : '';
+  fetch('update_resource.php', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ type, index, title, category, action: 'update' })
+  })
+  .then(res => res.text())
+  .then(alert)
+  .then(loadResources);
+}
+
+function deleteResource(type, index) {
+  if (!confirm("Confirmer la suppression ?")) return;
+  fetch('update_resource.php', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ type, index, action: 'delete' })
+  })
+  .then(res => res.text())
+  .then(alert)
+  .then(loadResources);
+}
+
+window.onload = () => {
+  if (sessionStorage.getItem('admin_logged_in')) {
+    loadResources();
+  }
+};
+</script>
+
+</html>

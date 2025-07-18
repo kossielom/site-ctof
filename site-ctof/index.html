@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CTOF – Communauté Togolaise de Ferrara</title>
+  <link rel="stylesheet" href="styles/main.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+</head>
+<body>
+  <header class="site-header">
+    <a href="index.html">
+      <img src="images/logo-ctof.jpg" alt="Logo CTOF" class="logo" />
+    </a>
+    <h1 class="lang" data-fr="COMMUNAUTÉ DES TOGOLAIS DE FERRARA" data-it="COMUNITÀ DEI TOGOLESI DI FERRARA">
+      COMMUNAUTÉ DES TOGOLAIS DE FERRARA
+    </h1>
+    <div class="lang-switch">
+      <button onclick="setLang('fr')">FR</button>
+      <button onclick="setLang('it')">IT</button>
+    </div>
+    <button class="burger" onclick="toggleMenu()"><i class="fas fa-bars"></i></button>
+    <nav id="main-nav">
+      <ul class="nav-list">
+        <li><a href="index.html" class="lang" data-fr="Accueil" data-it="Home">Accueil</a></li>
+        <li><a href="galerie.html" class="lang" data-fr="Galerie" data-it="Galleria">Galerie</a></li>
+        <li><a href="#contact" class="lang" data-fr="Contact" data-it="Contatti">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- Bannière d’actualités -->
+  <section class="banner-actualites">
+    <div class="marquee">
+      <span>🎉 Lancement du programme d’intégration – 10 juillet | 📢 Réunion communautaire – 20 juillet | 🍛 Fête culinaire CTOF – 3 août</span>
+    </div>
+  </section>
+
+  <main>
+        <section id="about">
+      <h2 class="lang" data-fr="À propos de CTOF" data-it="Chi siamo">À propos de CTOF</h2>
+      <p class="lang"
+         data-fr="L’association CTOF promeut la culture togolaise et soutient l’intégration à Ferrara."
+         data-it="L'associazione CTOF promuove la cultura togolese e sostiene l'integrazione a Ferrara.">
+        L’association CTOF promeut la culture togolaise et soutient l’intégration à Ferrara.
+      </p>
+    </section>
+
+    <section id="events">
+      <h2 class="lang" data-fr="Événements à venir" data-it="Eventi in programma">Événements à venir</h2>
+      <ul class="event-list">
+        <li>
+          <h3 class="lang" data-fr="Fête nationale togolaise" data-it="Festa nazionale togolese">Fête nationale togolaise</h3>
+          <p class="lang" data-fr="27 Avril – Centre culturel à Ferrara." data-it="27 Aprile – Centro culturale a Ferrara.">27 Avril – Centre culturel à Ferrara.</p>
+        </li>
+        <li>
+          <h3 class="lang" data-fr="Atelier de cuisine togolaise" data-it="Laboratorio di cucina togolese">Atelier de cuisine togolaise</h3>
+          <p class="lang" data-fr="5 novembre – Salle communautaire." data-it="5 novembre – Sala comunitaria.">5 novembre – Salle communautaire.</p>
+        </li>
+      </ul>
+    </section>
+    <section id="past-events">
+      <h2 class="lang" data-fr="Événements passés" data-it="Eventi passati">Événements passés</h2>
+      <ul class="event-list">
+        <li>
+          <h3>Journée culturelle africaine</h3>
+          <p>12 mai – Salle de la mairie de Ferrara</p>
+        </li>
+        <li>
+          <h3>Campagne de sensibilisation santé</h3>
+          <p>18 mars – Parc des peuples</p>
+        </li>
+      </ul>
+    </section>
+
+
+
+    <section id="videos">
+      <h2 class="lang" data-fr="Nos vidéos" data-it="I nostri video">Nos vidéos</h2>
+      <div class="video-grid">
+        <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" allowfullscreen></iframe>
+        <iframe src="https://www.youtube.com/embed/5qap5aO4i9A" allowfullscreen></iframe>
+      </div>
+    </section>
+
+
+    <section id="contact">
+      <h2 class="lang" data-fr="Nous contacter" data-it="Contattaci">Nous contacter</h2>
+      <p>Email : <a href="mailto:comunitactof@gmail.com">comunitactof@gmail.com</a></p>
+      <p class="lang" data-fr="Téléphone : +39 012 345 6789" data-it="Telefono: +39 012 345 6789">Téléphone : +39 012 345 6789</p>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p>&copy; 2025 CTOF – Tous droits réservés. by Elom Mario</p>
+    <div class="social-icons">
+      <a href="https://www.facebook.com/share/1EHa35tQ8t/" target="_blank"><i class="fab fa-facebook-f"></i></a>
+      <a href="https://www.instagram.com/ctof_ferrara?igsh=OXczaXFkOHEzYjNn" target="_blank"><i class="fab fa-instagram"></i></a>
+    </div>
+  </footer>
+
+  <script src="scripts/main.js"></script>
+</body>
+</html>

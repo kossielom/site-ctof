@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Galerie – CTOF</title>
+  <link rel="stylesheet" href="styles/main.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+</head>
+<body>
+  <header class="site-header">
+    <a href="index.html"><img src="images/logo-ctof.jpg" alt="Logo CTOF" class="logo" /></a>
+     <h1 class="lang" data-fr="COMMUNAUTÉ DES TOGOLAIS DE FERRARA" data-it="COMUNITÀ DEI TOGOLESI DI FERRARA">
+      COMMUNAUTÉ DES TOGOLAIS DE FERRARA
+    </h1>
+    
+    <div class="lang-switch">
+      <button onclick="setLang('fr')">FR</button>
+      <button onclick="setLang('it')">IT</button>
+    </div>
+    <button class="burger" onclick="toggleMenu()"><i class="fas fa-bars"></i></button>
+    <nav id="main-nav">
+      <ul class="nav-list">
+        <li><a href="index.html" class="lang" data-fr="Accueil" data-it="Home">Accueil</a></li>
+        <li><a href="galerie.html" class="lang" data-fr="Galerie" data-it="Galleria">Galerie</a></li>
+        <li><a href="index.html#contact" class="lang" data-fr="Contact" data-it="Contatti">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+    <!-- Bannière d’actualités -->
+  <section class="banner-actualites">
+    <div class="marquee">
+      <span>🎉 Lancement du programme d’intégration – 10 juillet | 📢 Réunion communautaire – 20 juillet | 🍛 Fête culinaire CTOF – 3 août</span>
+    </div>
+  </section>
+
+  <main>
+    <section class="gallery-section">
+      <h2 class="lang" data-fr="Nos moments" data-it="I nostri momenti">Nos moments</h2>
+
+      <div class="filter-buttons">
+        <button onclick="filterGallery('all')">Tout</button>
+        <button onclick="filterGallery('culture')">Culture</button>
+        <button onclick="filterGallery('events')">Événements</button>
+        <button onclick="filterGallery('cuisine')">Cuisine</button>
+      </div>
+
+      <div class="gallery-grid" id="gallery">
+        <!-- Les images seront injectées dynamiquement -->
+      </div>
+    </section>
+  </main>
+
+  <div id="modal" class="modal">
+    <span class="close" onclick="closeModal()">&times;</span>
+    <span class="arrow left" onclick="prevImage()">&#10094;</span>
+    <img class="modal-content" id="modal-img" />
+    <span class="arrow right" onclick="nextImage()">&#10095;</span>
+    <div id="modal-caption"></div>
+  </div>
+
+  <!-- ✅ Boutons ou miniatures cliquables -->
+<section id="videos">
+  <h2 class="lang" data-fr="Nos vidéos" data-it="I nostri video">Nos vidéos</h2>
+  <div class="video-grid">
+    <div class="video-thumb" onclick="openVideo('https://www.youtube.com/embed/dQw4w9WgXcQ')">
+      🎥 Lancement CTOF
+    </div>
+    <div class="video-thumb" onclick="openVideo('https://www.youtube.com/embed/5qap5aO4i9A')">
+      🎥 Fête de l’indépendance
+    </div>
+  </div>
+</section>
+
+<!-- ✅ MODALE VIDÉO -->
+<div id="video-modal" class="modal">
+  <span class="close" onclick="closeVideoModal()">&times;</span>
+  <div class="modal-video-content">
+    <iframe id="video-frame" src="" allowfullscreen></iframe>
+  </div>
+</div>
+
+  <footer class="site-footer">
+    <p>&copy; 2025 CTOF – Tous droits réservés.</p>
+    <div class="social-icons">
+      <a href="https://www.facebook.com/share/1EHa35tQ8t/" target="_blank"><i class="fab fa-facebook-f"></i></a>
+      <a href="https://www.instagram.com/ctof_ferrara?igsh=OXczaXFkOHEzYjNn" target="_blank"><i class="fab fa-instagram"></i></a>
+    </div>
+  </footer>
+  <script src="scripts/main.js"></script>
+</body>
+</html>
+
